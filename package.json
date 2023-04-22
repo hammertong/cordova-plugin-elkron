@@ -1,0 +1,37 @@
+{
+  "name": "cordova-plugin-elkron-api",
+  "version": "0.0.1",
+  "description": "Elkron Web API client plugin.",
+  "cordova": {
+    "id": "cordova-plugin-elkron-api",
+    "platforms": [
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hammertong/cordova-plugin-elkron-api.git"
+  },
+  "keywords": [
+    "elkron",
+    "http",
+    "https",
+    "api",
+    "webapi",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
+    }
+  ],
+  "author": "Federico Montini <federico.montini@urmet.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hammertong/cordova-plugin-elkron-api/issues"
+  },
+  "homepage": "https://github.com/hammertong/cordova-plugin-elkron-api/"
+}
+

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="cordova-plugin-elkron-api" version="0.0.1">
+    <name>ElkronApiPlugin</name>
+    <description>Elkron API plugin</description>
+    <license>MIT</license>
+    <keywords>cordova,android,http,api,webapi,elkron</keywords>
+    <repo>https://github.com/hammertong/cordova-plugin-elkron-api.git</repo>
+    <issue>https://github.com/hammertong/cordova-plugin-elkron-api/issues</issue>
+    <engines>
+        <engine name="cordova" version=">=3.0.0"/>
+    </engines>
+    <js-module src="www/elkron-api-plugin.js" name="ElkronApiPlugin">
+        <clobbers target="window.plugins.elkronApiPlugin" />
+    </js-module>
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="ElkronApiPlugin">
+                <param name="android-package" value="com.elkron.cordova.plugin.ElkronApiPlugin"/>
+            </feature>
+        </config-file>
+        <source-file src="src/android/ElkronApiPlugin.java" target-dir="src/com/elkron/cordova/plugin" />
+    </platform>
+</plugin>
