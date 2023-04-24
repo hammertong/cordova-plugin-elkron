@@ -29,14 +29,8 @@ public class ElkronApiPlugin extends CordovaPlugin {
 				String url = options.getString("url");
 				String method = options.isNull("type") ?  "GET" : options.getString("type").toUpperCase();
 				String contentType = options.isNull("contentType") ? "application/json" : options.getString("contentType");
-				
-				String data = null;
-				if (args.length() > 1) {
-					data = args.getString(1);
-				}
-				
-				boolean withCredentials = false;
-				if (url.indexOf("private") >= 0) withCredentials = true; 
+				String data = options.isNull("data") ?  null : options.getString("data");
+				boolean withCredentials = (url.indexOf("private") >= 0);
 				
 				client = getClient();
 				ElkronApiResponse r = client.exec(url, method, contentType, withCredentials, data);
