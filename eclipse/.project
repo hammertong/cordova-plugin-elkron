@@ -16,9 +16,20 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>src/com/elkron/cordova/plugin/ElkronApiPlugin.java</name>
-			<type>1</type>
-			<location>/home/federico/plugin-elkron-api/src/android/ElkronApiPlugin.java</location>
+			<name>com.elkron.cordova.plugin</name>
+			<type>2</type>
+			<location>/home/federico/plugin-elkron-api/src/android</location>
+		</link>
+		<link>
+			<name>src/com/elkron/cordova/plugin</name>
+			<type>2</type>
+			<locationURI>ELKRON_CORDOVA_PLUGIN_DIR/src/android</locationURI>
 		</link>
 	</linkedResources>
+	<variableList>
+		<variable>
+			<name>ELKRON_CORDOVA_PLUGIN_DIR</name>
+			<value>file:/home/federico/plugin-elkron-api</value>
+		</variable>
+	</variableList>
 </projectDescription>

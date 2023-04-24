@@ -10,7 +10,14 @@ import org.json.JSONObject;
 
 public class ElkronApiPlugin extends CordovaPlugin {
 	
+	private ElkronApiRequest client = null;
 
+	private synchronized ElkronApiRequest getClient() {
+		if (client == null)
+			client = new ElkronApiRequest();
+		return client;
+	}
+	
 	@Override
 	public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) {
 
@@ -23,42 +30,44 @@ public class ElkronApiPlugin extends CordovaPlugin {
 				String method = options.isNull("type") ?  "GET" : options.getString("type").toUpperCase();
 				String contentType = options.isNull("contentType") ? "application/json" : options.getString("contentType");
 				
-				int responseCode = -1;
-				StringBuffer responseText = new StringBuffer();
-
-				//
-				// TBD ..
-				//
-				responseCode = 200;
+				String data = null;
+				if (args.length() > 1) {
+					data = args.getString(1);
+				}
 				
-				boolean ok = (responseCode == 200 || responseCode == 201 || responseCode == 202 || responseCode == 204);
+				boolean withCredentials = false;
+				if (url.indexOf("private") >= 0) withCredentials = true; 
+				
+				client = getClient();
+				ElkronApiResponse r = client.exec(url, method, contentType, withCredentials, data);
+			
+				boolean ok = (r.code == 200 || r.code == 201 || r.code == 202 || r.code == 204);
 								
-				if (responseText.length() > 0 && responseText.toString().trim().startsWith("{")) {
-					callbackContext.success( new JSONObject( responseText.toString() ) );				
-					return true;
-				}
-				else if (responseText.length() > 0 && responseText.toString().trim().startsWith("[")) {
-					callbackContext.success( new JSONArray( responseText.toString() ) );				
-					return true;
-				}
-				else {
-					callbackContext.success( responseText.toString() );				
+				if (ok) {
+					callbackContext.success( r.textResponse );				
 					return true;					
 				}
-
+				else {
+					callbackContext.error( r.textResponse );				
+					return false;					
+				}
 			}			
 			
 
-		} catch (JSONException e) {
+		}
+		catch (ElkronApiException e) {
+			callbackContext.error("Error encountered: " + e.getMessage());
+			return false;
+		} 
+		catch (JSONException e) {
 			callbackContext.error("Error encountered: " + e.getMessage());
 			return false;
 		}
 	
-		// Send a positive result to the callbackContext
-		PluginResult pluginResult = new PluginResult(PluginResult.Status.OK);
-		callbackContext.sendPluginResult(pluginResult);
+		PluginResult pluginResult = new PluginResult(PluginResult.Status.ERROR);
+		callbackContext.sendPluginResult(pluginResult);		
+		return false;
 		
-		return true;
 	}
 
 }
