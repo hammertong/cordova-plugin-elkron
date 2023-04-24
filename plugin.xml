@@ -21,5 +21,8 @@
             </feature>
         </config-file>
         <source-file src="src/android/ElkronApiPlugin.java" target-dir="src/com/elkron/cordova/plugin" />
+	<source-file src="src/android/ElkronApiException.java" target-dir="src/com/elkron/cordova/plugin" />
+	<source-file src="src/android/ElkronApiRequest.java" target-dir="src/com/elkron/cordova/plugin" />
+	<source-file src="src/android/ElkronApiResponse.java" target-dir="src/com/elkron/cordova/plugin" />
     </platform>
 </plugin>
