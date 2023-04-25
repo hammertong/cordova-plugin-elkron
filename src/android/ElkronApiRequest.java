@@ -12,12 +12,11 @@ public class ElkronApiRequest {
 	/** connect timeout in seconds */
 	static final int HTTP_CONNECT_TIMEOUT = 5;
 
-	String endpoint = null;
-	String sessionCookie = null;
+	public String endpoint = null;
+	public String sessionCookie = null;
 
 	public ElkronApiRequest(String endpoint) {
 		this.endpoint = endpoint;
-
 	}
 
 	public ElkronApiRequest() {
@@ -41,11 +40,12 @@ public class ElkronApiRequest {
 			conn.setRequestProperty("charset", "utf-8");
 			if (data != null && data.length() > 0) {
 				conn.setRequestProperty("Content-Length", "" + data.getBytes().length);
+				conn.setDoOutput(true);
 			}
 			if (withCredentials && sessionCookie != null && sessionCookie.length() > 0) {
 				conn.setRequestProperty("Cookie", sessionCookie);
 			}
-			conn.setDoOutput(true);
+
 			conn.setDoInput(true);
 			conn.setUseCaches(false);
 			conn.setRequestProperty("Connection", "close");

@@ -24,30 +24,27 @@ public class ElkronApiPlugin extends CordovaPlugin {
 		try {
 		
 			if (action.equalsIgnoreCase("doRequest")) {
-			
+
 				JSONObject options = args.getJSONObject(0);
 				String url = options.getString("url");
-				String method = options.isNull("type") ?  "GET" : options.getString("type").toUpperCase();
+				String method = options.isNull("type") ? "GET" : options.getString("type").toUpperCase();
 				String contentType = options.isNull("contentType") ? "application/json" : options.getString("contentType");
-				String data = options.isNull("data") ?  null : options.getString("data");
+				String data = options.isNull("data") ? null : options.getString("data");
 				boolean withCredentials = (url.indexOf("private") >= 0);
-				
+
 				client = getClient();
 				ElkronApiResponse r = client.exec(url, method, contentType, withCredentials, data);
-			
-				boolean ok = (r.code == 200 || r.code == 201 || r.code == 202 || r.code == 204);
-								
-				if (ok) {
-					callbackContext.success( r.textResponse );				
-					return true;					
-				}
-				else {
-					callbackContext.error( r.textResponse );				
-					return false;					
-				}
-			}			
-			
 
+				boolean ok = (r.code == 200 || r.code == 201 || r.code == 202 || r.code == 204);
+
+				if (ok) {
+					callbackContext.success(r.textResponse);
+					return true;
+				} else {
+					callbackContext.error(r.textResponse);
+					return false;
+				}
+			}
 		}
 		catch (ElkronApiException e) {
 			callbackContext.error("Error encountered: " + e.getMessage());
